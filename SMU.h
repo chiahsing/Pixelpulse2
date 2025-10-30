@@ -59,7 +59,7 @@ public:
 
     bool isContinuous(){return m_continuous;}
     bool getActive() { return m_active; }
-    QQmlListProperty<DeviceItem> getDevices() { return QQmlListProperty<DeviceItem>(this, m_devices); }
+    QQmlListProperty<DeviceItem> getDevices() { return QQmlListProperty<DeviceItem>(this, &m_devices); }
     static void usb_handle_thread_method(SessionItem *session_item);
 
 signals:
@@ -114,7 +114,7 @@ class DeviceItem : public QObject {
 
 public:
     DeviceItem(SessionItem*, smu::Device*);
-    QQmlListProperty<ChannelItem> getChannels() { return QQmlListProperty<ChannelItem>(this, m_channels); }
+    QQmlListProperty<ChannelItem> getChannels() { return QQmlListProperty<ChannelItem>(this, &m_channels); }
     QString getLabel() { return QString(m_device->info()->label); }
     QString getFWVer() { return QString::fromStdString(m_device->m_fwver); }
     QString getHWVer() { return QString::fromStdString(m_device->m_hwver); }
@@ -143,7 +143,7 @@ class ChannelItem : public QObject {
 
 public:
     ChannelItem(DeviceItem*, smu::Device*, unsigned index);
-    QQmlListProperty<SignalItem> getSignals() { return QQmlListProperty<SignalItem>(this, m_signals); }
+    QQmlListProperty<SignalItem> getSignals() { return QQmlListProperty<SignalItem>(this, &m_signals); }
     QString getLabel() const { return QString(m_device->channel_info(m_index)->label); }
 
     void buildTxBuffer();
