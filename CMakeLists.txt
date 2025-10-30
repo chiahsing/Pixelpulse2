@@ -1,9 +1,4 @@
-if(MSVC)
-	# needed for CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS support
-	cmake_minimum_required(VERSION 3.4)
-else()
-	cmake_minimum_required(VERSION 2.8.7)
-endif()
+cmake_minimum_required(VERSION 3.10)
 project(pixelpulse2 CXX C)
 
 # libsmu versioning
