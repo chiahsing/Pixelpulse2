@@ -276,9 +276,8 @@ void SessionItem::downloadFromUrl(QString url)
 
 QString SessionItem::flash_firmware(QString url){
     QString ret = "";
-    int flashed = 0;
     try{
-        flashed = m_session->flash_firmware(url.toStdString());
+        m_session->flash_firmware(url.toStdString());
     }
     catch(std::runtime_error &e){
         ret = e.what();
