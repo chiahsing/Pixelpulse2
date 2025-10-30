@@ -28,13 +28,13 @@ class DataLogger;
 class SessionItem : public QObject {
     Q_OBJECT
     Q_PROPERTY(QQmlListProperty<DeviceItem> devices READ getDevices NOTIFY devicesChanged)
-    Q_PROPERTY(bool active READ getActive NOTIFY activeChanged);
-    Q_PROPERTY(unsigned sampleRate MEMBER m_sample_rate NOTIFY sampleRateChanged);
-    Q_PROPERTY(unsigned sampleCount MEMBER m_sample_count NOTIFY sampleCountChanged);
-    Q_PROPERTY(double sampleTime MEMBER m_sample_time NOTIFY sampleTimeChanged);
-    Q_PROPERTY(unsigned logging MEMBER m_logging NOTIFY loggingChanged);
-    Q_PROPERTY(int activeDevices READ getActiveDevices NOTIFY activeChanged);
-    Q_PROPERTY(int availableDevices READ getAvailableDevices NOTIFY devicesChanged);
+    Q_PROPERTY(bool active READ getActive NOTIFY activeChanged)
+    Q_PROPERTY(unsigned sampleRate MEMBER m_sample_rate NOTIFY sampleRateChanged)
+    Q_PROPERTY(unsigned sampleCount MEMBER m_sample_count NOTIFY sampleCountChanged)
+    Q_PROPERTY(double sampleTime MEMBER m_sample_time NOTIFY sampleTimeChanged)
+    Q_PROPERTY(unsigned logging MEMBER m_logging NOTIFY loggingChanged)
+    Q_PROPERTY(int activeDevices READ getActiveDevices NOTIFY activeChanged)
+    Q_PROPERTY(int availableDevices READ getAvailableDevices NOTIFY devicesChanged)
     Q_PROPERTY(int queueSize MEMBER m_queue_size CONSTANT)
 
 public:
@@ -105,12 +105,12 @@ protected:
 /// DeviceItem abstracts over a LibSMU Device exposing relevant parameters to QML
 class DeviceItem : public QObject {
     Q_OBJECT
-    Q_PROPERTY(QQmlListProperty<ChannelItem> channels READ getChannels CONSTANT);
-    Q_PROPERTY(QString label READ getLabel CONSTANT);
-    Q_PROPERTY(QString FWVer READ getFWVer CONSTANT);
-    Q_PROPERTY(QString HWVer READ getHWVer CONSTANT);
-    Q_PROPERTY(int DefaultRate READ getDefaultRate CONSTANT);
-    Q_PROPERTY(QString UUID READ getDevSN CONSTANT);
+    Q_PROPERTY(QQmlListProperty<ChannelItem> channels READ getChannels CONSTANT)
+    Q_PROPERTY(QString label READ getLabel CONSTANT)
+    Q_PROPERTY(QString FWVer READ getFWVer CONSTANT)
+    Q_PROPERTY(QString HWVer READ getHWVer CONSTANT)
+    Q_PROPERTY(int DefaultRate READ getDefaultRate CONSTANT)
+    Q_PROPERTY(QString UUID READ getDevSN CONSTANT)
 
 public:
     DeviceItem(SessionItem*, smu::Device*);
@@ -137,9 +137,9 @@ protected:
 
 class ChannelItem : public QObject {
     Q_OBJECT
-    Q_PROPERTY(QQmlListProperty<SignalItem> signals READ getSignals CONSTANT);
-    Q_PROPERTY(QString label READ getLabel CONSTANT);
-    Q_PROPERTY(unsigned mode MEMBER m_mode NOTIFY modeChanged);
+    Q_PROPERTY(QQmlListProperty<SignalItem> signals READ getSignals CONSTANT)
+    Q_PROPERTY(QString label READ getLabel CONSTANT)
+    Q_PROPERTY(unsigned mode MEMBER m_mode NOTIFY modeChanged)
 
 public:
     ChannelItem(DeviceItem*, smu::Device*, unsigned index);
@@ -171,18 +171,18 @@ protected:
 /// Abstracts over a LibSMU Signal and the BufferItem used for rendering data
 class SignalItem : public QObject {
     Q_OBJECT
-    Q_PROPERTY(FloatBuffer* buffer READ getBuffer CONSTANT);
-    Q_PROPERTY(QString label READ getLabel CONSTANT);
-    Q_PROPERTY(double min READ getMin CONSTANT);
-    Q_PROPERTY(double max READ getMax CONSTANT);
-    Q_PROPERTY(double resolution READ getResolution CONSTANT);
-    Q_PROPERTY(SrcItem* src READ getSrc CONSTANT);
-    Q_PROPERTY(bool isOutput READ getIsOutput NOTIFY isOutputChanged);
-    Q_PROPERTY(bool isInput READ getIsInput NOTIFY isInputChanged);
-    Q_PROPERTY(double measurement READ getMeasurement NOTIFY measurementChanged);
-    Q_PROPERTY(double peak_to_peak READ getPeak NOTIFY peakChanged);
-    Q_PROPERTY(double rms READ getRms NOTIFY rmsChanged);
-    Q_PROPERTY(double mean READ getMean NOTIFY meanChanged);
+    Q_PROPERTY(FloatBuffer* buffer READ getBuffer CONSTANT)
+    Q_PROPERTY(QString label READ getLabel CONSTANT)
+    Q_PROPERTY(double min READ getMin CONSTANT)
+    Q_PROPERTY(double max READ getMax CONSTANT)
+    Q_PROPERTY(double resolution READ getResolution CONSTANT)
+    Q_PROPERTY(SrcItem* src READ getSrc CONSTANT)
+    Q_PROPERTY(bool isOutput READ getIsOutput NOTIFY isOutputChanged)
+    Q_PROPERTY(bool isInput READ getIsInput NOTIFY isInputChanged)
+    Q_PROPERTY(double measurement READ getMeasurement NOTIFY measurementChanged)
+    Q_PROPERTY(double peak_to_peak READ getPeak NOTIFY peakChanged)
+    Q_PROPERTY(double rms READ getRms NOTIFY rmsChanged)
+    Q_PROPERTY(double mean READ getMean NOTIFY meanChanged)
 
 public:
     SignalItem(ChannelItem*, int index, smu::Signal*);
@@ -245,12 +245,12 @@ protected:
 
 class SrcItem : public QObject {
     Q_OBJECT
-    Q_PROPERTY(QString src   MEMBER m_src     NOTIFY srcChanged);
-    Q_PROPERTY(double v1     MEMBER m_v1      NOTIFY v1Changed);
-    Q_PROPERTY(double v2     MEMBER m_v2      NOTIFY v2Changed);
-    Q_PROPERTY(double period MEMBER m_period  NOTIFY periodChanged);
-    Q_PROPERTY(double phase  MEMBER m_phase   WRITE setPhase NOTIFY phaseChanged);
-    Q_PROPERTY(double duty   MEMBER m_duty    NOTIFY dutyChanged);
+    Q_PROPERTY(QString src   MEMBER m_src     NOTIFY srcChanged)
+    Q_PROPERTY(double v1     MEMBER m_v1      NOTIFY v1Changed)
+    Q_PROPERTY(double v2     MEMBER m_v2      NOTIFY v2Changed)
+    Q_PROPERTY(double period MEMBER m_period  NOTIFY periodChanged)
+    Q_PROPERTY(double phase  MEMBER m_phase   WRITE setPhase NOTIFY phaseChanged)
+    Q_PROPERTY(double duty   MEMBER m_duty    NOTIFY dutyChanged)
 
 public:
     SrcItem(SignalItem*);
