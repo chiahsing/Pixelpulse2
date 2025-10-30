@@ -2,3 +2,4 @@ build
 Makefile*
 pixelpulse2
 release
+.vscode
