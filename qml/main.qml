@@ -79,14 +79,6 @@ ApplicationWindow {
                         width: timelinePane.spacing * 3
                         Layout.fillHeight: true
                     }
-
-                    TimelineHeader {
-                        id: timeline_header
-                        Layout.fillWidth: true
-                        Layout.fillHeight: true
-
-                        xaxis: timeline_xaxis
-                    }
                 }
 
                 Rectangle {
@@ -191,6 +183,16 @@ ApplicationWindow {
 
                 boundMin: 0
                 boundMax: controller.sampleTime
+            }
+
+            TimelineHeader {
+                id: timeline_header
+                anchors.top: parent.top
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.leftMargin: toolbar.width
+                height: toolbarHeight
+                xaxis: timeline_xaxis
             }
         }
 
