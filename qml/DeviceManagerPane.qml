@@ -158,10 +158,8 @@ ColumnLayout {
 
   Rectangle {
     id: devListRefreshBtn
-    anchors { left: parent.left;
-              right: parent.right;
-              leftMargin: 5;
-              rightMargin: 5 }
+    Layout.fillWidth: true
+    Layout.margins: 5
     height: 25
     radius: 4
     color: 'grey'
@@ -356,10 +354,8 @@ ColumnLayout {
   }
   Rectangle {
     id: updateBtn
-    anchors { right: parent.right;
-              bottom: logCleanBtn.top;
-              bottomMargin: 5;
-              rightMargin: 5 }
+    Layout.alignment: Qt.AlignRight
+    Layout.rightMargin: 5
     height: 25
     width: 145
     radius: 4
@@ -418,10 +414,8 @@ ColumnLayout {
 
   Rectangle {
     id: logCleanBtn
-    anchors { right: parent.right;
-              bottom: logOutput.top;
-              bottomMargin: 5;
-              rightMargin: 5 }
+    Layout.alignment: Qt.AlignRight
+    Layout.rightMargin: 5
     height: 25
     width: 85
     radius: 4
