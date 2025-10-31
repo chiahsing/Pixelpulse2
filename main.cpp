@@ -6,6 +6,8 @@
 #include <QThreadPool>
 #include <QIcon>
 #include <QApplication>
+#include <QLoggingCategory>
+
 #include "SMU.h"
 
 #include "utils/fileio.h"
@@ -13,6 +15,8 @@
 
 int main(int argc, char *argv[])
 {
+    QLoggingCategory::setFilterRules("*.debug=false");
+
     // Prevent config being written to ~/.config/Unknown Organization/pixelpulse2.conf
     QCoreApplication::setOrganizationName("ADI");
     QCoreApplication::setApplicationName("Pixelpulse2");
