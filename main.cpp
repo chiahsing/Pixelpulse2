@@ -36,18 +36,9 @@ int main(int argc, char* argv[]) {
   versions.insert("git_version", GIT_VERSION);
   engine.rootContext()->setContextProperty("versions", versions);
   engine.rootContext()->setContextProperty("fileio", &fileIO);
-  if (argc > 1) {
-    if (strcmp(argv[1], "-v") || strcmp(argv[1], "--version")) {
-      std::cout << GIT_VERSION << ": Built on " << BUILD_DATE << std::endl;
-      return 0;
-    }
-    engine.load(argv[1]);
-  } else {
-    engine.load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
-  }
+  engine.load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
 
-  app.setWindowIcon(QIcon(":/icons/pp2.ico"));
-  QApplication::setWindowIcon(QIcon(":/icons/pp2.ico"));
+  app.setWindowIcon(QIcon("qrc:/icons/pp2.ico"));
 
   int r = app.exec();
   smu_session.closeAllDevices();
