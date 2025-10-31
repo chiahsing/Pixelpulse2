@@ -148,7 +148,7 @@ Item {
         Item {
           Connections {
             target: modelData
-            onModeChanged: {
+            function onModeChanged(mode) {
                 if(continuous)
                     session.restart();
             }
