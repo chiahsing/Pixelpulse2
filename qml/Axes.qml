@@ -1,6 +1,5 @@
-import QtQuick 2.1
-import QtQuick.Layouts 1.0
-import QtQuick.Window 2.0
+import QtQuick 2.15
+import QtQuick.Layouts 1.11
 
 Item {
     id: axes
@@ -13,8 +12,8 @@ Item {
     property real ymin: 0
     property real ymax: 1
     property real textSpacing: 12
-    property int xgridticks: width / 12
-    property int ygridticks: height / 12
+    property int xgridticks: Math.max(0, width / 12)
+    property int ygridticks: Math.max(0, height / 12)
     property var gridColor: '#fff'
     property var textColor: '#fff'
     property var textSize: 14
