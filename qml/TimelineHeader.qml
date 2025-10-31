@@ -1,4 +1,4 @@
-import QtQuick 2.1
+import QtQuick 2.15
 
 Rectangle {
     id: timeline
@@ -35,7 +35,7 @@ Rectangle {
     clip: true
 
     Repeater {
-        model: timeline.width / min_spacing + 1
+        model: Math.max(0, timeline.width / min_spacing + 1)
 
         Rectangle {
             property real n: start + index
