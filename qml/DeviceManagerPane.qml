@@ -346,10 +346,10 @@ ColumnLayout {
 
     Connections {
      target: session
-       onDevicesChanged: {
+       function onDevicesChanged() {
            deviceManagerListFill();
        }
-       onFirmwareDownloaded:{
+       function onFirmwareDownloaded() {
            firmwareDownloaded = true;
        }
     }
