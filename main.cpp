@@ -19,13 +19,13 @@ int main(int argc, char *argv[])
 
     QLocale::setDefault(QLocale(QLocale::English, QLocale::UnitedStates));
 
-    QGuiApplication app(argc, argv);
-    QQmlApplicationEngine engine;
-
     registerTypes();
 
-    FileIO fileIO;
     SessionItem smu_session;
+    FileIO fileIO;
+
+    QGuiApplication app(argc, argv);
+    QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty("session", &smu_session);
 
     QVariantMap versions;

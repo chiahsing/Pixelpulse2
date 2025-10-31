@@ -61,9 +61,9 @@ m_logging(0)
 }
 
 SessionItem::~SessionItem() {
-        Q_ASSERT(m_devices.size() == 0);
+        closeAllDevices(); // Ensure devices are closed and cleaned up.
         delete sweepTimer;
-        delete this->m_data_logger;
+        delete m_data_logger;
 }
 
 
@@ -86,8 +86,11 @@ void SessionItem::closeAllDevices()
     m_devices.swap(devices);
     devicesChanged();
 
-    for (auto i: devices)
+    for (auto i: devices) {
         m_session->remove(i->m_device);
+        // The DeviceItem is owned by the SessionItem and must be deleted.
+        delete i;
+    }
 }
 
 /// configure device, datapaths, and start streaming
