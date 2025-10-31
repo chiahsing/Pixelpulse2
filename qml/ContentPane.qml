@@ -56,9 +56,10 @@ ColumnLayout {
     outField.text = out;
     }
 	selectByMouse: true
-  }
-  MouseArea {
-    anchors.fill: inField
-    onPressed: { mouse.accepted = false; if (inField.text == "type here.") {inField.text = "" }}
+
+    MouseArea {
+      anchors.fill: parent
+      onPressed: { mouse.accepted = false; if (inField.text == "type here.") {inField.text = "" }}
+    }
   }
 }

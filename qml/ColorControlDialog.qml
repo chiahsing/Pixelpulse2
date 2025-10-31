@@ -25,7 +25,8 @@ Dialog {
         Rectangle{
             id: rectangle
             color: '#333'
-            anchors.fill: parent
+            Layout.fillWidth: true
+            Layout.fillHeight: true
             Layout.preferredWidth: 300
             Layout.preferredHeight: 300
             Layout.maximumHeight: 300

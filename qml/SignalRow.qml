@@ -119,7 +119,11 @@ Rectangle {
       property bool isVoltageSignal: signal.label === "Voltage" ? true : false
       property real up_dn_Sensitivity : isVoltageSignal ? 0.01 : 0.001;
       property real pgUp_pgDn_Sensitivity : isVoltageSignal ? 1.0 : 0.1;
-
+      
+        Item {
+            Layout.preferredWidth: parent.width * 0.10
+        }
+        
         // V1
         TextInput {
           id: v1TextBox
@@ -128,7 +132,6 @@ Rectangle {
           selectByMouse: true
           font.pixelSize: currentFontSize
           readOnly: !signal.isOutput
-          property real position: idRectangle.x + idRectangle.width * 10/100;
 
 
           Binding {
@@ -185,17 +188,13 @@ Rectangle {
           }
 
           validator: DoubleValidator{}
-          anchors.left: parent.left
-          anchors.leftMargin: idRectangle.width * 10/100;
         }
         Text {
            id: v1UnitLabel
            color: 'white'
            text: (signal.label == "Voltage" ? " Volts" : " Amperes") + (signal.isOutput ? "" : " (peak to peak)");
-           anchors.left: v1TextBox.right
-           anchors.leftMargin: idRectangle.width * 1/100
            font.pixelSize: currentFontSize
-           property real position: v1TextBox.position + v1TextBox.width + idRectangle.width * 1/100;
+           Layout.leftMargin: idRectangle.width * 1/100
 
         }
         // Resistance
@@ -206,11 +205,12 @@ Rectangle {
              var r = Math.abs((channel.signals[0].measurement / channel.signals[1].measurement)).toFixed();
              (Math.abs(channel.signals[1].measurement) > 0.001) ? "    " + r + " Ohms" : ""
           }
-          anchors.left: v1UnitLabel.right
-          anchors.leftMargin: idRectangle.width * 1/100
           font.pixelSize: currentFontSize
-          property real position: v1TextBox.position + v1TextBox.width + idRectangle.width * 1/100;
         }
+        Item {
+            Layout.preferredWidth: idRectangle.width * 0.10
+        }
+
         // V2
         TextInput {
           id: v2TextBox
@@ -219,7 +219,6 @@ Rectangle {
           color: "#FFF"
           selectByMouse: true
           font.pixelSize: currentFontSize
-          property real position: v1UnitLabel.position + v1UnitLabel.width + idRectangle.width * 10/100
 
           Binding {
             target: v2TextBox; property: 'text'
@@ -273,30 +272,28 @@ Rectangle {
           }
 
           validator: DoubleValidator{}
-          anchors.left: v1UnitLabel.right
-          anchors.leftMargin: idRectangle.width * 10/100
         }
         Text {
            id: v2UnitLabel
            color: 'white'
            text: overlay_periodic.visible ? (signal.label == "Voltage" ? " Volts" : " Amperes") : ""
-           anchors.left: v2TextBox.right
-           anchors.leftMargin: idRectangle.width * 1/100
            font.pixelSize: currentFontSize
-           property real position: v2TextBox.position + v2TextBox.width + idRectangle.width * 1/100;
+           Layout.leftMargin: idRectangle.width * 1/100
         }
 
+        Item {
+            Layout.preferredWidth: idRectangle.width * 0.10
+        }
         // Freq
         TextInput {
           id: perTextBox
-          visible: (perUnitLabel.position + perUnitLabel.width <= idRectangle.x + idRectangle.width) && !(signal.isOutput && signal.src.src === 'constant')
+          visible: !(signal.isOutput && signal.src.src === 'constant')
           text: signal.isOutput ? (signal.src.src != 'constant' ? Math.abs(controller.sampleRate / signal.src.period).toFixed(3) : "") : signal.rms.toFixed(4);
           color: "#FFF"
           selectByMouse: true
           font.pixelSize: currentFontSize
           readOnly: !signal.isOutput
 
-          property real position: (signal.isOutput ? v2UnitLabel.position + v2UnitLabel.width : v1UnitLabel.position + v1UnitLabel.width) + idRectangle.width * 10/100
           property real up_dn_freq_Sensivity: 1
           property real pgUp_pgDn_freq_Sensivity: 100
 
@@ -352,71 +349,59 @@ Rectangle {
           }
 
           validator: DoubleValidator{}
-          anchors.left: signal.isOutput ? v2UnitLabel.right : v1UnitLabel.right;
-          anchors.leftMargin: idRectangle.width * 10/100
         }
         Text {
            id: perUnitLabel
            color: 'white'
-           visible: perUnitLabel.position + perUnitLabel.width <= idRectangle.x + idRectangle.width;
-           anchors.left: perTextBox.right
-           anchors.leftMargin: idRectangle.width * 1/100
+           visible: perTextBox.visible
            text: signal.isOutput ? (signal.src.src != 'constant' ? "Hertz" : ""): "RMS (AC)";
            font.pixelSize: currentFontSize
-           property real position: perTextBox.position + perTextBox.width + idRectangle.width * 1/100;
+           Layout.leftMargin: idRectangle.width * 1/100
         }
 
+        Item {
+            Layout.preferredWidth: idRectangle.width * 0.10
+        }
         Text {
             id: averageTextBox
-            visible: averageLabel.position + averageLabel.width <= idRectangle.x + idRectangle.width;
+            visible: !signal.isOutput
             text: signal.isOutput ? "" : signal.mean.toFixed(4);
             color: "#FFF"
             font.pixelSize: currentFontSize
-
-            property real position: perUnitLabel.position + perUnitLabel.width + idRectangle.width * 10/100
 
             Binding {
               target: averageTextBox; property: 'text';
               value: signal.isOutput ? "" : signal.mean.toFixed(4);
             }
 
-            anchors.left: perUnitLabel.right
-            anchors.leftMargin: idRectangle.width * 10/100
+            Layout.leftMargin: idRectangle.width * 10/100
         }
         Text {
             id: averageLabel;
             color: "white";
-            visible: averageLabel.position + averageLabel.width <= idRectangle.x + idRectangle.width;
-            anchors.left: averageTextBox.right;
-            anchors.leftMargin: idRectangle.width * 1/100;
+            visible: !signal.isOutput
             text: signal.isOutput ? "" : "Average";
             font.pixelSize: currentFontSize;
-            property real position: averageTextBox.position + averageTextBox.width + idRectangle.width * 1/100;
+            Layout.leftMargin: idRectangle.width * 1/100
         }
 
+        Item { Layout.fillWidth: true }
+        
         //Max Input
         Text {
             id: maxLabel;
             color: "white";
-            visible:(signal.isOutput ? (maxLabel.position > perUnitLabel.position+perUnitLabel.width+10) :
-                                       (maxLabel.position > averageTextBox.position+averageTextBox.width+10));
-
-            anchors.right: maxInput.left;
-            anchors.rightMargin: idRectangle.width * 1/100;
             text: (signal.label == "Voltage" ? "Max V" : "Max A")
             font.pixelSize: currentFontSize;
-            property real position: maxInput.position-idRectangle.width*1/100-maxLabel.width;
+            Layout.rightMargin: idRectangle.width * 1/100
         }
         TextInput {
           id: maxInput
-          visible: maxLabel.visible
           text: axes.ymax.toFixed(3);
           color: "#FFF"
           selectByMouse: true
           font.pixelSize: currentFontSize
           readOnly: false;
-
-          property real position: minLabel.position-idRectangle.width*3/100-maxInput.width;
 
           onEditingFinished: {
             var value = constrainValue(Number.fromLocaleString(text), signal.min-axes.overrangeSpan, signal.max+axes.overrangeSpan)
@@ -431,31 +416,23 @@ Rectangle {
           }
 
           validator: DoubleValidator{}
-          anchors.right: minLabel.left;
-          anchors.rightMargin: idRectangle.width * 3/100;
+          Layout.rightMargin: idRectangle.width * 3/100
         }
         //Min Input
         Text {
             id: minLabel;
             color: "white";
-            visible: (signal.isOutput ? minLabel.position > perUnitLabel.position+perUnitLabel.width+10 :
-                                        minLabel.position > averageTextBox.position+averageTextBox.width+10);
-            anchors.right: minInput.left;
-            anchors.rightMargin: idRectangle.width * 1/100;
             text: (signal.label == "Voltage" ? "Min V" : "Min A")
             font.pixelSize: currentFontSize;
-            property real position: parent.width-minInput.width-idRectangle.width*1/100+35-minLabel.width;
+            Layout.rightMargin: idRectangle.width * 1/100
         }
         TextInput {
           id: minInput
-          visible: minLabel.visible;
           text: axes.ymin.toFixed(3);
           color: "#FFF"
           selectByMouse: true
           font.pixelSize: currentFontSize
           readOnly: false;
-
-          property real position: parent.width+35-minInput.width;
 
           onEditingFinished: {
             var value = constrainValue(Number.fromLocaleString(text), signal.min-axes.overrangeSpan, signal.max+axes.overrangeSpan)
@@ -470,8 +447,7 @@ Rectangle {
           }
 
           validator: DoubleValidator{}
-          anchors.right: parent.right;
-          anchors.rightMargin: -35;
+          Layout.rightMargin: 5
         }
      }
   }
