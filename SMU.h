@@ -120,6 +120,7 @@ class DeviceItem : public QObject {
 
  public:
   DeviceItem(SessionItem*, smu::Device*);
+  ~DeviceItem() override;
   QQmlListProperty<ChannelItem> getChannels() {
     return QQmlListProperty<ChannelItem>(this, &m_channels);
   }

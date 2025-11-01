@@ -421,15 +421,21 @@ DeviceItem::DeviceItem(SessionItem* parent, Device* dev)
   for (unsigned ch_i = 0; ch_i < dev_info->channel_count; ch_i++) {
     m_channels.append(new ChannelItem(this, dev, ch_i));
   }
+
+  dev->set_led(2);  // green
+}
+
+DeviceItem::~DeviceItem() {
+  m_device->set_led(1);  // red
 }
 
 void DeviceItem::blinkLeds() {
   std::thread led_thread([=] {
-    this->m_device->set_led(1);
+    this->m_device->set_led(6);  // blue + green
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
-    this->m_device->set_led(2);
+    this->m_device->set_led(2);  // green
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
-    this->m_device->set_led(1);
+    this->m_device->set_led(6);
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
     this->m_device->set_led(2);
   });
