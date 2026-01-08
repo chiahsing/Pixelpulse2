@@ -85,9 +85,9 @@ endif()
 
 include(GNUInstallDirs)
 
-# set default install path to /usr
+# set default install path to /usr/local
 if (NOT WIN32 AND CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-	set(CMAKE_INSTALL_PREFIX "/usr" CACHE PATH "default install path" FORCE)
+	set(CMAKE_INSTALL_PREFIX "/usr/local" CACHE PATH "default install path" FORCE)
 endif()
 
 # handle RPATH issues on OS X
