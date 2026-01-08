@@ -1,8 +1,7 @@
 import Plot 1.0
 import QtQml 2.2
 import QtQuick 2.2
-import QtQuick.Controls 1.0
-import QtQuick.Controls.Styles 1.1
+import QtQuick.Controls 2.3
 import QtQuick.Layouts 1.0
 
 Rectangle {
@@ -62,18 +61,20 @@ Rectangle {
         anchors.left: parent.left
         width: timelinePane.spacing
         height: timelinePane.spacing
-        iconSource: 'qrc:/icons/' + signal.src.src + '.png'
+        icon.source: 'qrc:/icons/' + signal.src.src + '.png'
+        icon.color: "white"
+        icon.width: 32
+        icon.height: 32
+        onClicked: menu.open()
 
-        style: ButtonStyle {
-
-            background: Rectangle {
-                opacity: control.pressed ? 0.3 : control.checked ? 0.2 : 0.1
-                color: 'black'
-            }
-
+        background: Rectangle {
+            opacity: parent.pressed ? 0.3 : parent.checked ? 0.2 : 0.1
+            color: 'black'
         }
 
-        menu: Menu {
+        Menu {
+            id: menu
+            y: parent.height
             MenuItem {
                 text: "Constant"
                 onTriggered: signalBlock.switchToConstant()

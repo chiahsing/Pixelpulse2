@@ -1,6 +1,5 @@
 import QtQuick 2.1
-import QtQuick.Controls 1.0
-import QtQuick.Controls.Styles 1.1
+import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.0
 
 Rectangle {
@@ -10,14 +9,10 @@ Rectangle {
     Component {
         id: btnStyle
 
-        ButtonStyle {
-
-            background: Rectangle {
-                implicitWidth: 56
-                opacity: control.pressed ? 0.3 : control.checked ? 0.2 : 0.01
-                color: 'white'
-            }
-
+        Rectangle {
+            implicitWidth: 56
+            opacity: parent.pressed ? 0.3 : parent.checked ? 0.2 : 0.01
+            color: 'white'
         }
 
     }

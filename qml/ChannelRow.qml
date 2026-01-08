@@ -1,6 +1,5 @@
 import QtQuick 2.1
-import QtQuick.Controls 1.0
-import QtQuick.Controls.Styles 1.1
+import QtQuick.Controls 2.3
 import QtQuick.Layouts 1.0
 import QtQuick.Window 2.0
 
@@ -30,18 +29,20 @@ Rectangle {
         anchors.left: parent.left
         width: timelinePane.spacing
         height: timelinePane.spacing
-        iconSource: 'qrc:/icons/' + icons[channel.mode] + '.png'
+        icon.source: 'qrc:/icons/' + icons[channel.mode] + '.png'
+        icon.color: "white"
+        icon.width: 32
+        icon.height: 32
+        onClicked: menu.open()
 
-        style: ButtonStyle {
-
-            background: Rectangle {
-                opacity: control.pressed ? 0.3 : control.checked ? 0.2 : 0.1
-                color: 'black'
-            }
-
+        background: Rectangle {
+            opacity: parent.pressed ? 0.3 : parent.checked ? 0.2 : 0.1
+            color: 'black'
         }
 
-        menu: Menu {
+        Menu {
+            id: menu
+            y: parent.height
             MenuItem {
                 text: "Measure Voltage"
                 onTriggered: channel.mode = 0

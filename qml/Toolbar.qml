@@ -1,7 +1,6 @@
 import QtGraphicalEffects 1.0
 import QtQuick 2.1
-import QtQuick.Controls 1.0
-import QtQuick.Controls.Styles 1.1
+import QtQuick.Controls 2.3
 import QtQuick.Dialogs 1.0
 import QtQuick.Dialogs 1.2
 import QtQuick.Layouts 1.0
@@ -16,7 +15,7 @@ ToolbarStyle {
     property alias colorDialog: sessColorDialog
     property alias acqusitionDialog: sessAcqSettDialog
 
-    ExclusiveGroup {
+    ButtonGroup {
         id: timeGroup
     }
 
@@ -62,12 +61,24 @@ ToolbarStyle {
     }
 
     Button {
-        tooltip: "Menu"
+        ToolTip.text: "Menu"
+        ToolTip.visible: hovered
+        hoverEnabled: true
         Layout.fillHeight: true
-        style: btnStyle
-        iconSource: 'qrc:/icons/gear.png'
+        background: Loader {
+            sourceComponent: btnStyle
+            property bool pressed: parent.pressed
+            property bool checked: parent.checked
+        }
+        icon.source: 'qrc:/icons/gear.png'
+        icon.color: "white"
+        icon.width: 32
+        icon.height: 32
+        onClicked: menu.open()
 
-        menu: Menu {
+        Menu {
+            id: menu
+            y: parent.height
             MenuItem {
                 id: repeatedSweepItem
 
@@ -80,7 +91,7 @@ ToolbarStyle {
                 title: "Sample Time"
 
                 MenuItem {
-                    exclusiveGroup: timeGroup
+                    ButtonGroup.group: timeGroup
                     checkable: true
                     checked: controller.sampleTime == 0.01 ? true : false
                     onTriggered: controller.sampleTime = 0.01
@@ -88,7 +99,7 @@ ToolbarStyle {
                 }
 
                 MenuItem {
-                    exclusiveGroup: timeGroup
+                    ButtonGroup.group: timeGroup
                     checkable: true
                     checked: controller.sampleTime == 0.1 ? true : false
                     onTriggered: controller.sampleTime = 0.1
@@ -96,7 +107,7 @@ ToolbarStyle {
                 }
 
                 MenuItem {
-                    exclusiveGroup: timeGroup
+                    ButtonGroup.group: timeGroup
                     checkable: true
                     checked: controller.sampleTime == 1 ? true : false
                     onTriggered: controller.sampleTime = 1
@@ -104,7 +115,7 @@ ToolbarStyle {
                 }
 
                 MenuItem {
-                    exclusiveGroup: timeGroup
+                    ButtonGroup.group: timeGroup
                     checkable: true
                     checked: controller.sampleTime == 10 ? true : false
                     onTriggered: controller.sampleTime = 10
@@ -195,11 +206,20 @@ ToolbarStyle {
     }
 
     Button {
-        tooltip: "Start"
+        ToolTip.text: "Start"
+        ToolTip.visible: hovered
+        hoverEnabled: true
         Layout.fillHeight: true
         Layout.alignment: Qt.AlignRight
-        style: btnStyle
-        iconSource: (controller.enabled & (session.availableDevices > 0)) ? 'qrc:/icons/pause.png' : 'qrc:/icons/play.png'
+        background: Loader {
+            sourceComponent: btnStyle
+            property bool pressed: parent.pressed
+            property bool checked: parent.checked
+        }
+        icon.source: (controller.enabled & (session.availableDevices > 0)) ? 'qrc:/icons/pause.png' : 'qrc:/icons/play.png'
+        icon.color: "white"
+        icon.width: 56
+        icon.height: 56
         onClicked: {
             if (session.availableDevices > 0)
                 controller.toggle();
